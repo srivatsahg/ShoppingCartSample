@@ -5,6 +5,7 @@ using ShoppingLibrary.Service;
 using ShoppingLibrary.Model;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using System.Linq;
 
 namespace ShoppingLibraryTests
 {
@@ -53,16 +54,21 @@ namespace ShoppingLibraryTests
             Assert.Equal(370, _sut.CalculateTotalCost(cart));
         }
 
-        [Fact]
-        public void ScenarioCTest()
+        [Theory]
+        [MemberData(nameof(TestCartData))]
+        public void ScenarioCTestTheory(params ShoppingCart[] values)
+        {
+            Assert.Equal(280, _sut.CalculateTotalCost(values.ToList()));
+        }
+
+        public static IEnumerable<object[]> TestCartData()
         {
             List<ShoppingCart> cart = new List<ShoppingCart>();
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "A", UnitPrice = 50.0 }, Quantity = 3 });
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "B", UnitPrice = 30.0 }, Quantity = 5 });
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "C", UnitPrice = 20.0 }, Quantity = 1 });
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "D", UnitPrice = 15.0 }, Quantity = 1 });
-
-            Assert.Equal(280, _sut.CalculateTotalCost(cart));
+            yield return cart.ToArray();
         }
     }
 }
