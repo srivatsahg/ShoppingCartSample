@@ -1,6 +1,5 @@
 C:\Personal\Workspace\Maersk\ShoppingLibrary\bin\Debug\ShoppingLibrary.dll
 C:\Personal\Workspace\Maersk\ShoppingLibrary\bin\Debug\ShoppingLibrary.pdb
-C:\Personal\Workspace\Maersk\ShoppingLibrary\obj\Debug\ShoppingLibrary.csprojAssemblyReference.cache
 C:\Personal\Workspace\Maersk\ShoppingLibrary\obj\Debug\ShoppingLibrary.csproj.CoreCompileInputs.cache
 C:\Personal\Workspace\Maersk\ShoppingLibrary\obj\Debug\ShoppingLibrary.dll
 C:\Personal\Workspace\Maersk\ShoppingLibrary\obj\Debug\ShoppingLibrary.pdb
