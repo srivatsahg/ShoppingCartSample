@@ -28,5 +28,18 @@ namespace ShoppingLibraryTests
 
             Assert.Equal(115, _sut.CalculateTotalCost(cart));
         }
+        
+        [Fact]
+        public void TestTotalCostWithDifferentQuantitiesAndNoDiscount()
+        {
+            List<ShoppingCart> cart = new List<ShoppingCart>();
+
+            cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "A", UnitPrice = 50.0 }, Quantity = 2 });
+            cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "B", UnitPrice = 30.0 }, Quantity = 3 });
+            cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "C", UnitPrice = 20.0 }, Quantity = 3 });
+            cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "D", UnitPrice = 15.0 }, Quantity = 5 });
+
+            Assert.Equal(325, _sut.CalculateTotalCost(cart));
+        }
     }
 }

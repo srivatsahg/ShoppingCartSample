@@ -6,8 +6,19 @@ using ShoppingLibrary.Model;
 
 namespace ShoppingLibrary.Service
 {
+    /// <summary>
+    /// This class introduces a promotional offer as defined in the User Requirements
+    /// 3 SKUs of Stock A - 130
+    /// 2 SKUs of Stock B - 45
+    /// A pair of Stocks C & D cost 30
+    /// </summary>
     public class PromotionalOfferStrategy : ICheckoutStrategy
     {
+        public const int SKU_A_DISCOUNT_RATE = 130;
+        public const int SKU_B_DISCOUNT_RATE = 45;
+        public const int SKU_C_D_DISCOUNT_RATE = 30;
+
+
         public double CalculateTotalCost(List<ShoppingCart> cart)
         {
             var totalCost = 0.0;
@@ -48,33 +59,33 @@ namespace ShoppingLibrary.Service
             unitPriceD = cart.Where(item => item.Product.Name == "D")
                                     .Select(item => item.Product.UnitPrice).FirstOrDefault();
 
-            //A
+            //SKU A Discount logic
             var itemPrice = 0.0;
-            itemPrice += ((quantityA / 3) * 130) + ((quantityA % 3) * unitPriceA);
+            itemPrice += ((quantityA / 3) * SKU_A_DISCOUNT_RATE) + ((quantityA % 3) * unitPriceA);
             Console.WriteLine("Total Cost for the Item A with discount applied : {0}", itemPrice);
             totalCost += itemPrice;
 
-            //B
+            //SKU B Discount logic
             itemPrice = 0.0;
-            itemPrice += ((quantityB / 2) * 45) + ((quantityB % 2) * unitPriceB);
+            itemPrice += ((quantityB / 2) * SKU_B_DISCOUNT_RATE) + ((quantityB % 2) * unitPriceB);
             Console.WriteLine("Total Cost for the Item B with discount applied : {0}", itemPrice);
             totalCost += itemPrice;
 
-            //C&D
+            //Discount logic when C&D are purchased together
             itemPrice = 0.0;
             if (quantityC > 0 || quantityD > 0)
             {
                 if (quantityC == quantityD)
                 {
-                    itemPrice += quantityC * 30;
+                    itemPrice += quantityC * SKU_C_D_DISCOUNT_RATE;
                 }
                 else if (quantityC > quantityD)
                 {
-                    itemPrice += Math.Abs(quantityC - quantityD) * unitPriceC + quantityD * 30;
+                    itemPrice += Math.Abs(quantityC - quantityD) * unitPriceC + quantityD * SKU_C_D_DISCOUNT_RATE;
                 }
                 else if (quantityC < quantityD)
                 {
-                    itemPrice += Math.Abs(quantityC - quantityD) * unitPriceD + quantityC * 30;
+                    itemPrice += Math.Abs(quantityC - quantityD) * unitPriceD + quantityC * SKU_C_D_DISCOUNT_RATE;
                 }
             }
             Console.WriteLine("Total Cost for the Item C & D with discount applied : {0}", itemPrice);

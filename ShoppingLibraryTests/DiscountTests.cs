@@ -60,6 +60,15 @@ namespace ShoppingLibraryTests
         {
             Assert.Equal(280, _sut.CalculateTotalCost(values.ToList()));
         }
+        
+        [Theory]
+        [MemberData(nameof(TestCartItemCandD))]
+        public void TestDifferentQuantitiesStockCAndStockD(params ShoppingCart[] values)
+        {
+            Assert.Equal(80, _sut.CalculateTotalCost(values.ToList()));
+        }
+
+
 
         public static IEnumerable<object[]> TestCartData()
         {
@@ -68,6 +77,14 @@ namespace ShoppingLibraryTests
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "B", UnitPrice = 30.0 }, Quantity = 5 });
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "C", UnitPrice = 20.0 }, Quantity = 1 });
             cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "D", UnitPrice = 15.0 }, Quantity = 1 });
+            yield return cart.ToArray();
+        } 
+        
+        public static IEnumerable<object[]> TestCartItemCandD()
+        {
+            List<ShoppingCart> cart = new List<ShoppingCart>();
+            cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "C", UnitPrice = 20.0 }, Quantity = 3 });
+            cart.Add(new ShoppingCart() { Product = new ShoppingProduct() { Name = "D", UnitPrice = 15.0 }, Quantity = 2 });
             yield return cart.ToArray();
         }
     }
